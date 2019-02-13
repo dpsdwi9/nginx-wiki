@@ -20,11 +20,12 @@ nginx.conf
       worker_connections  4096;  ## Default: 1024
     }
 
-    http {
-      include    conf/mime.types;
-      include    /etc/nginx/proxy.conf;
-      include    /etc/nginx/fastcgi.conf;
-      index    index.html index.htm index.php;
+    http { fastcgi_buffers 8 16k;
+    fastcgi_buffer_size 32k;
+    fastcgi_connect_timeout 300;
+    fastcgi_send_timeout 300;
+    fastcgi_read_timeout 300; }
+      
 
       default_type application/octet-stream;
       log_format   main '$remote_addr - $remote_user [$time_local]  $status '
